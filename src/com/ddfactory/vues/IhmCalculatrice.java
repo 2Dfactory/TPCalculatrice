@@ -29,9 +29,6 @@ public class IhmCalculatrice extends JFrame implements ActionListener{
 	private String[] listOfButtonA1 = {"1","2","3","4","5","6","7","8","9","0",".","="};
 	private String[] listOfButtonA2 = {"C","+","-","*","/"};
 	private String str ="";
-	
-	private Dimension size = new Dimension(300,400);
-	
 
 	public IhmCalculatrice() {
 		
@@ -39,15 +36,17 @@ public class IhmCalculatrice extends JFrame implements ActionListener{
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
-		this.setSize(this.size);
+		this.setSize(300,400);
 		
 		//TODO Essai Border (ajout d'une cadre)
 		Border line = BorderFactory.createLineBorder(Color.BLACK, 2);
 		label.setBorder(line);
-		label.setPreferredSize(new Dimension((int)(size.getWidth()-20), (int)(size.getHeight()-360)));;
+		label.setPreferredSize(new Dimension((int)(this.getWidth()-20), (int)(this.getHeight()-(this.getHeight()-40))));;
 		
-		labelPane.setPreferredSize(new Dimension((int)(size.getWidth()-20), (int)(size.getHeight()-350)));
+		//labelPane.setPreferredSize(new Dimension((int)(this.getWidth()-20), (int)(this.getHeight()-350)));
+		
 		labelPane.add(label);
+		labelPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		
 		//Initialisation des layouts
 		GridLayout glA1 = new GridLayout(4, 3);
@@ -64,7 +63,7 @@ public class IhmCalculatrice extends JFrame implements ActionListener{
 		buttonArea1.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 0));
 		
 		buttonArea2.setLayout(glA2);
-		buttonArea2.setPreferredSize(new Dimension((int)(size.getWidth()-200), (int)(size.getHeight()-40)));
+		buttonArea2.setPreferredSize(new Dimension((int)(this.getWidth()-(this.getWidth()-80)), (int)(this.getHeight()-40)));
 		buttonArea2.setBorder(BorderFactory.createEmptyBorder(0, 0, 10, 10));
 		
 		addButtonToPanel(listOfButtonA1, buttonArea1);
@@ -75,39 +74,11 @@ public class IhmCalculatrice extends JFrame implements ActionListener{
 		contentLayout.setHgap(10);
 		contentLayout.setVgap(10);
 		this.setLayout(contentLayout);
-		
-		//BorderLayout bdl = new BorderLayout();
-		//bdl.setHgap(10);
-		//bdl.setVgap(10);
-		
-		//centerPane.setLayout(bdl);
-		//centerPane.add(labelPane, BorderLayout.NORTH);
-		
-		//centerPane.add(buttonArea1, BorderLayout.CENTER);
-		//centerPane.add(buttonArea2, BorderLayout.EAST);
-		
-		
-		
+
 		this.getContentPane().add(labelPane, BorderLayout.NORTH);
 		this.getContentPane().add(buttonArea1, BorderLayout.CENTER);
 		this.getContentPane().add(buttonArea2, BorderLayout.EAST);
-		
-		
-		
-		//this.getContentPane().add(centerPane, BorderLayout.CENTER);
 
-/*		this.contentPane.setPreferredSize(new Dimension((int)(size.getWidth()-40),(int)(size.getHeight()-40)));
-		this.contentPane.setLayout(new GridBagLayout());
-		
-		GridBagConstraints gbc = new GridBagConstraints();
-		
-		
-		
-		
-		
-		
-		
-		this.setContentPane(contentPane);*/
 		this.setVisible(true);
 		
 	}
