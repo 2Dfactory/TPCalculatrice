@@ -18,54 +18,70 @@ public class Processor implements Observable{
 		
 
 		if(str.equalsIgnoreCase("c")) {
+			str = "";
 			this.texte = "";
-			this.updateObservateur();
-			return;
 		}
 		
 		if(str.equalsIgnoreCase("=")) {
-			resultatOperation(op1, op2, typeOperateur);
+			str = "";
+			this.texte = resultatOperation(typeOperateur);
+			
+			if(this.texte.equalsIgnoreCase("Division par 0")) {
+				this.updateObservateur();
+				return;
+			}
+			
 			this.operateur = false;
-			this.updateObservateur();
-			return;
 		}
 		
 		if(str.equalsIgnoreCase("+") || str.equalsIgnoreCase("-") || str.equalsIgnoreCase("/") || str.equalsIgnoreCase("*")) {
 			
 			typeOperateur = str.toLowerCase();
 			if(this.operateur) {
-				op1 = resultatOperation(op1, op2, typeOperateur);
+				this.texte = resultatOperation(typeOperateur);
+				op1 = Double.valueOf(texte);
+				System.out.println(op1);
 			}
+			this.texte = "";
 			this.operateur = true;
+			str = "";
 		}
 		
 		this.texte+=str;
 		
-		
-//		switch(str) {
-//		case "c": this.texte = "";
-//				break;
-//		case "+" : this.operateur = true;
-//				this.typeOperateur = str;
-//		default : this.texte+=str;
-//		}
-		
-		
-		
-		
-		
-		
-		
-
+		if(!this.texte.isEmpty()) {
+			if(!this.operateur) {
+				op1 = Double.valueOf(this.texte);
+			}
+			else {
+				op2 = Double.valueOf(this.texte);
+			}
+		}
 		
 		this.updateObservateur();
 		
 	}
 	
-	private double resultatOperation(double op1, double op2, String operateur) {
+	private String resultatOperation(String operateur) {
 		
+		double resultOp = 0;
 		
-		return 0;
+		switch(operateur) {
+		case "+" : resultOp = op1 + op2;
+				break;
+		case "-" : resultOp = op1 - op2;
+				break;
+		case "*" : resultOp = op1 * op2;
+				break;
+		case "/" : 
+				if(op2 == 0) return "Division par 0";
+				resultOp = op1 / op2;
+				break;
+		default : 
+				break;
+		}
+		
+		return String.valueOf(resultOp);
 		
 	}
 	
