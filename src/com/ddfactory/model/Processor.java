@@ -18,6 +18,9 @@ public class Processor implements Observable{
 		
 
 		if(str.equalsIgnoreCase("c")) {
+			this.op1 = 0;
+			this.op2 = 0;
+			this.typeOperateur = "";
 			str = "";
 			this.texte = "";
 		}
@@ -25,26 +28,44 @@ public class Processor implements Observable{
 		if(str.equalsIgnoreCase("=")) {
 			str = "";
 			this.texte = resultatOperation(typeOperateur);
-			
+			this.operateur = false;
+
 			if(this.texte.equalsIgnoreCase("Division par 0")) {
 				this.updateObservateur();
+				this.texte = "";
 				return;
 			}
 			
-			this.operateur = false;
+			this.updateObservateur();
+			this.texte = "";
+			return;
 		}
 		
 		if(str.equalsIgnoreCase("+") || str.equalsIgnoreCase("-") || str.equalsIgnoreCase("/") || str.equalsIgnoreCase("*")) {
 			
-			typeOperateur = str.toLowerCase();
+			
+			
 			if(this.operateur) {
+				
 				this.texte = resultatOperation(typeOperateur);
-				op1 = Double.valueOf(texte);
+				op1 = Double.valueOf(this.texte);
 				System.out.println(op1);
+				this.updateObservateur();
+				this.texte = "";
+				return;
 			}
-			this.texte = "";
+			else {
+				op1 = Double.valueOf(this.texte);
+				//this.texte = "";
+			}
+			
+			typeOperateur = str.toLowerCase();
 			this.operateur = true;
 			str = "";
+			
+			this.updateObservateur();
+			this.texte = "";
+			
 		}
 		
 		this.texte+=str;
@@ -80,6 +101,9 @@ public class Processor implements Observable{
 		default : 
 				break;
 		}
+		
+		this.op1 = 0;
+		this.op2 = 0;
 		
 		return String.valueOf(resultOp);
 		
