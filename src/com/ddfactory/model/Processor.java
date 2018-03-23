@@ -43,18 +43,22 @@ public class Processor implements Observable{
 		
 		if(str.equalsIgnoreCase("+") || str.equalsIgnoreCase("-") || str.equalsIgnoreCase("/") || str.equalsIgnoreCase("*")) {
 			
-			
-			
 			if(this.operateur) {
 				
 				this.texte = resultatOperation(typeOperateur);
+				
+				if(this.texte.equalsIgnoreCase("Division par 0")) {
+					this.updateObservateur();
+					this.texte = "";
+					return;
+				}
+				
 				op1 = Double.valueOf(this.texte);
-				System.out.println(op1);
+				typeOperateur = str.toLowerCase();
 				this.updateObservateur();
 				this.texte = "";
 				return;
-			}
-			else {
+			} else {
 				op1 = Double.valueOf(this.texte);
 				//this.texte = "";
 			}
