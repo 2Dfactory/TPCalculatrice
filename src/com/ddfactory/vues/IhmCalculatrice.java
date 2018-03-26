@@ -25,7 +25,7 @@ import com.ddfactory.observer.Observateur;
 
 public class IhmCalculatrice extends JFrame implements ActionListener{
 	
-	private JLabel label = new JLabel();
+	private JLabel label = new JLabel("0");
 	private JPanel labelPane = new JPanel();
 	private JPanel buttonArea1 = new JPanel();
 	private JPanel buttonArea2 = new JPanel();

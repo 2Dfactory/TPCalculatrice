@@ -22,7 +22,7 @@ public class Processor implements Observable{
 			this.op2 = 0;
 			this.typeOperateur = "";
 			str = "";
-			this.texte = "";
+			this.texte = "0";
 		}
 		
 		if(str.equalsIgnoreCase("=")) {
